@@ -7,6 +7,7 @@ import com.softserve.edu.service.SpecialityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +40,32 @@ public class FacultyController {
                 .getSpecialitiesByFacultyId(Integer.parseInt(facultyId));
         model.addAttribute("faculty", faculty);
         model.addAttribute("specialities", specialities);
+        return "/faculty";
+    }
+
+    @RequestMapping(path = "/faculty/edit", method = RequestMethod.GET)
+    public String addFaculty(@RequestParam(name = "id", required = false)
+                                         String id, Model model) {
+        Faculty faculty = null;
+        if (id == null) {
+            faculty = new Faculty();
+        } else {
+            faculty = facultyService.getFacultyById(Integer.parseInt(id));
+        }
+        model.addAttribute("faculty", faculty);
+        return "/edit-faculty";
+    }
+
+    @RequestMapping(path = "/faculty/edit", method = RequestMethod.POST)
+    public String editFaculty(@RequestParam(name = "id", required =
+            false) String id, @ModelAttribute Faculty faculty, Model model) {
+        if (id != null) {
+            facultyService.updateFaculty(faculty);
+        } else {
+            facultyService.addFaculty(faculty);
+        }
+        Faculty faculty1 = facultyService.getFacultyById(faculty.getId());
+        model.addAttribute("faculty", faculty1);
         return "/faculty";
     }
 }

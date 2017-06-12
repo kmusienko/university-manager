@@ -22,6 +22,11 @@ public class Faculty {
     public Faculty() {
 
     }
+    public Faculty(String name, String address, String letter) {
+        this.name = name;
+        this.address = address;
+        this.letter = letter;
+    }
 
     public int getId() {
         return id;

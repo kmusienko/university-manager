@@ -12,12 +12,12 @@ import java.util.List;
  */
 @Service
 public class FacultyServiceImpl implements FacultyService {
-    public void addFaculty(Faculty faculty) {
-        DaoFactory.getInstance().getFacultyDao().addElement(faculty);
+    public Faculty addFaculty(Faculty faculty) {
+        return DaoFactory.getInstance().getFacultyDao().addElement(faculty);
     }
 
-    public void updateFaculty(Faculty faculty) {
-        DaoFactory.getInstance().getFacultyDao().updateElement(faculty);
+    public Faculty updateFaculty(Faculty faculty) {
+        return DaoFactory.getInstance().getFacultyDao().updateElement(faculty);
     }
 
     public Faculty getFacultyById(int facultyId) {
