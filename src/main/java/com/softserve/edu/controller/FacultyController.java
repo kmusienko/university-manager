@@ -46,7 +46,7 @@ public class FacultyController {
     @RequestMapping(path = "/faculty/edit", method = RequestMethod.GET)
     public String addFaculty(@RequestParam(name = "id", required = false)
                                          String id, Model model) {
-        Faculty faculty = null;
+        Faculty faculty;
         if (id == null) {
             faculty = new Faculty();
         } else {
@@ -59,7 +59,8 @@ public class FacultyController {
     @RequestMapping(path = "/faculty/edit", method = RequestMethod.POST)
     public String editFaculty(@RequestParam(name = "id", required =
             false) String id, @ModelAttribute Faculty faculty, Model model) {
-        if (id != null) {
+        if (id != null && !id.equals("0")) {
+            faculty.setId(Integer.parseInt(id));
             facultyService.updateFaculty(faculty);
         } else {
             facultyService.addFaculty(faculty);
@@ -67,5 +68,13 @@ public class FacultyController {
         Faculty faculty1 = facultyService.getFacultyById(faculty.getId());
         model.addAttribute("faculty", faculty1);
         return "/faculty";
+    }
+
+    @RequestMapping(path = "/faculty/delete", method = RequestMethod.GET)
+    public String deleteFaculty(@RequestParam(name = "id") String id, Model
+            model) {
+        Faculty faculty = facultyService.getFacultyById(Integer.parseInt(id));
+        facultyService.deleteFaculty(faculty);
+        return "redirect:/faculties";
     }
 }

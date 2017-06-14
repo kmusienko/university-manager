@@ -23,6 +23,8 @@
 
         <c:url value="/faculty/edit?id=${faculty.id}" var="editUrl"/>
         <a href="${editUrl}" class="btn btn-primary" role="button">Изменить</a>
+        <c:url value="/faculty/delete?id=${faculty.id}" var="deleteUrl"/>
+        <a href="${deleteUrl}" class="btn btn-danger" role="button">Удалить</a>
 
         <h3>Специальности:</h3>
 

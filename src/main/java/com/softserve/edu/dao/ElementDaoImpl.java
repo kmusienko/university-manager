@@ -16,7 +16,7 @@ public class ElementDaoImpl<E> implements ElementDao<E> {
         this.elementClass = elementClass;
     }
 
-    public E addElement(E element) {
+    public void addElement(E element) {
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -28,10 +28,9 @@ public class ElementDaoImpl<E> implements ElementDao<E> {
                 session.close();
             }
         }
-        return element;
     }
 
-    public E updateElement(E element) {
+    public void updateElement(E element) {
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -42,9 +41,7 @@ public class ElementDaoImpl<E> implements ElementDao<E> {
             if ((session != null) && (session.isOpen())) {
                 session.close();
             }
-        }
-        return element;
-    }
+        }}
 
     public E getElementById(int elementId) {
         Session session = null;
