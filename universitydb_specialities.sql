@@ -1,0 +1,2 @@
+INSERT INTO universitydb.specialities (name, letter, faculty_id) VALUES ('Системный анализ', 'С', 1);
+INSERT INTO universitydb.specialities (name, letter, faculty_id) VALUES ('Программная инженерия', 'З', 1);

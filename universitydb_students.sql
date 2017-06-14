@@ -1,0 +1,3 @@
+INSERT INTO universitydb.students (first_name, last_name, group_id, ind_number, address, birthday_date) VALUES ('Константин', 'Мусиенко', 1, '123456879', 'г. Днепр, ул. Илларионовская', '1997-08-18');
+INSERT INTO universitydb.students (first_name, last_name, group_id, ind_number, address, birthday_date) VALUES ('Дмитрий', 'Николаев', 1, '213456789', 'г. Днепр, ул. Артема', '1996-10-04');
+INSERT INTO universitydb.students (first_name, last_name, group_id, ind_number, address, birthday_date) VALUES ('Константин', 'Караваев', 1, '321456789', 'г. Днепр, ул. Кирова', '1997-01-23');

@@ -1,0 +1,1 @@
+INSERT INTO universitydb.groups (curator_id, specialities_id, year_int, group_num) VALUES (1, 3, 2014, 1);

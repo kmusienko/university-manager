@@ -1,0 +1,2 @@
+INSERT INTO universitydb.cathedras (name, faculty_id) VALUES ('Кафедра вычислительной математики', 1);
+INSERT INTO universitydb.cathedras (name, faculty_id) VALUES ('Кафедра компьютерных технологий', 1);
