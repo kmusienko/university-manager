@@ -38,7 +38,8 @@
             </tbody>
         </table>
         <c:url value="/faculty/edit" var="createUrl"/>
-        <a href="${createUrl}" class="btn btn=success" role="button">Добавить факультет</a>
+        <a href="${createUrl}" class="btn btn-success" role="button">
+            Добавить факультет</a>
     </div>
 
 </div>

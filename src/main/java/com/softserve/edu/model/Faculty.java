@@ -1,6 +1,8 @@
 package com.softserve.edu.model;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Kostya on 10.06.2017.
@@ -18,10 +20,14 @@ public class Faculty {
     private String address;
     @Column(name = "letter")
     private String letter;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "faculty", cascade =
+            CascadeType.ALL)
+    private List<Speciality> specialities;
 
     public Faculty() {
 
     }
+
     public Faculty(String name, String address, String letter) {
         this.name = name;
         this.address = address;
@@ -59,4 +65,13 @@ public class Faculty {
     public void setLetter(String letter) {
         this.letter = letter;
     }
+
+    public List<Speciality> getSpecialities() {
+        return specialities;
+    }
+
+    public void setSpecialities(List<Speciality> specialities) {
+        this.specialities = specialities;
+    }
+
 }

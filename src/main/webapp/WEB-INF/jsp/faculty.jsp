@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <h3>Факультет:</h3>
         <h4>Название: ${faculty.name}</h4>
         <h4>Адрес: ${faculty.address}</h4>
@@ -53,7 +53,7 @@
             </tbody>
         </table>
 
-        <c:url value="/faculty/speciality/add?facultyId=${faculty.id}"
+        <c:url value="/faculty/speciality/edit?facultyId=${faculty.id}&specialityId=${speciality.id}"
                var="addSpecialityUrl"/>
         <a href="${addSpecialityUrl}" class="btn btn-success" role="button">
             Добавить специальность</a>

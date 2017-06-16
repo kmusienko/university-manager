@@ -1,1 +1,1 @@
-INSERT INTO universitydb.hibernate_sequence (next_val) VALUES (23);
+INSERT INTO universitydb.hibernate_sequence (next_val) VALUES (29);

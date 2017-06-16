@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Kostya on 11.06.2017.
@@ -32,12 +33,13 @@ public class FacultyController {
     }
 
     @RequestMapping(path = "/faculty")
-    public String showFacultyInfo(@RequestParam(name = "id") String facultyId,
+    public String showFacultyInfo(@RequestParam(name = "id") int facultyId,
                                   Model model) {
         Faculty faculty =
-                facultyService.getFacultyById(Integer.parseInt(facultyId));
-        List<Speciality> specialities = specialityService
-                .getSpecialitiesByFacultyId(Integer.parseInt(facultyId));
+                facultyService.getFacultyById(facultyId);
+//        List<Speciality> specialities = specialityService
+        //                .getSpecialitiesByFacultyId(Integer.parseInt(facultyId));
+        List<Speciality> specialities = faculty.getSpecialities();
         model.addAttribute("faculty", faculty);
         model.addAttribute("specialities", specialities);
         return "/faculty";
