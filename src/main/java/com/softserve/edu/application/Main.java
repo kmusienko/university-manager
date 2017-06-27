@@ -33,6 +33,11 @@ public class Main {
         for (Subject subject : subjectService.getAllSubjects()) {
             System.out.println(subject.getName());
         }
+        PlanService planService = new PlanServiceImpl();
+        for (Plan plan : planService.getAllPlans()) {
+            System.out.println(groupService.getGroupName(plan.getGroup()) + " "
+                                       + plan.getControl());
+        }
 
 //        SpecialityService specialityService = new SpecialityServiceImpl();
 //        for (Speciality speciality : specialityService.getAllSpecialities()) {
