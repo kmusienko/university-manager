@@ -67,7 +67,6 @@ public class ElementDaoImpl<E> implements ElementDao<E> {
             //     elements = session.createCriteria(elementClass).list();
             elements = session.createQuery("from " + elementClass.getName(),
                                            elementClass).getResultList();
-
         } finally {
             if ((session != null) && (session.isOpen())) {
                 session.close();

@@ -2,7 +2,6 @@ package com.softserve.edu.model;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Kostya on 10.06.2017.
@@ -23,10 +22,23 @@ public class Faculty {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "faculty", cascade =
             CascadeType.ALL)
     private List<Speciality> specialities;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "faculty", cascade =
+            CascadeType.ALL)
+    private List<Cathedra> cathedras;
 
     public Faculty() {
 
     }
+
+    public List<Cathedra> getCathedras() {
+        return cathedras;
+    }
+
+    public void setCathedras(List<Cathedra> cathedras) {
+        this.cathedras = cathedras;
+    }
+
+
 
     public Faculty(String name, String address, String letter) {
         this.name = name;

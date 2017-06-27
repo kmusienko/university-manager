@@ -1,18 +1,24 @@
 package com.softserve.edu.config;
 
+import com.softserve.edu.model.Faculty;
+import com.softserve.edu.model.Speciality;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManagerFactory;
+import java.io.IOException;
 import java.util.Properties;
 import org.apache.commons.dbcp2.BasicDataSource;
 
@@ -46,8 +52,10 @@ public class PersistenceConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+        LocalContainerEntityManagerFactoryBean factory = new
+                LocalContainerEntityManagerFactoryBean();
+//        LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
         factory.setDataSource(dataSource());
         factory.setPackagesToScan("com.softserve.edu.model");
 
@@ -59,9 +67,25 @@ public class PersistenceConfig {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-        JpaTransactionManager txManager = new JpaTransactionManager();
-        txManager.setEntityManagerFactory(entityManagerFactory);
+    public SessionFactory sessionFactory() {
+      //  LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
+        LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder
+                (dataSource());
+        builder.scanPackages("com.softserve.edu.model");
+        builder.addAnnotatedClasses(Faculty.class, Speciality.class);
+        builder.addProperties(hibernateProperties());
+//        factory.setDataSource(dataSource());
+//        factory.setPackagesToScan("com.softserve.edu.model");
+//        factory.setAnnotatedClasses(Faculty.class, Speciality.class);
+//        factory.setHibernateProperties(hibernateProperties());
+      //  factory.afterPropertiesSet();
+        return builder.buildSessionFactory();
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        HibernateTransactionManager txManager = new HibernateTransactionManager();
+        txManager.setSessionFactory(sessionFactory());
         return txManager;
     }
 

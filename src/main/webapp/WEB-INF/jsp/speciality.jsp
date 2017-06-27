@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Account</title>
+    <title>Специальность</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
@@ -19,10 +19,13 @@
     <h4>Буква: ${speciality.letter}</h4>
     <h4>Факультет: ${faculty.name}</h4>
 
-    <c:url value="/faculty/speciality?id=${speciality.id}" var="editUrl"/>
+    <c:url value="/faculty/speciality/edit?facultyId=${faculty.id}&specialityId=${speciality.id}" var="editUrl"/>
     <a href="${editUrl}" class="btn btn-primary" role="button">Изменить</a>
-    <c:url value="/faculty/speciality/delete?id=${speciality.id}" var="deleteUrl"/>
+    <c:url value="/faculty/speciality/delete?facultyId=${faculty.id}&specialityId=${speciality.id}" var="deleteUrl"/>
     <a href="${deleteUrl}" class="btn btn-danger" role="button">Удалить</a>
+    <c:url value="/faculty?id=${faculty.id}" var="allfacultiesUrl"/>
+    <a href="${allfacultiesUrl}" class="btn btn-link" role="button">Все
+        специальности</a>
 </div>
 </body>
 </html>

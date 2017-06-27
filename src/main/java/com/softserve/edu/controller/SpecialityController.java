@@ -63,10 +63,13 @@ public class SpecialityController {
     @RequestMapping(path = "/faculty/speciality/edit",
             method = RequestMethod.POST)
     public String editSpeciality(
-            @RequestParam(name = "id", required = false) String id,
+            @RequestParam(name = "facultyId") String facultyId,
+            @RequestParam(name = "specialityId") String specialityId,
             @ModelAttribute Speciality speciality, Model model) {
-        if (id != null && !id.equals("0")) {
-            speciality.setId(Integer.parseInt(id));
+        speciality.setFaculty(
+                facultyService.getFacultyById(Integer.parseInt(facultyId)));
+        if (specialityId != null && !specialityId.equals("0")) {
+            // speciality.setId(Integer.parseInt(id));
             specialityService.updateSpeciality(speciality);
         } else {
             specialityService.addSpeciality(speciality);
@@ -74,7 +77,20 @@ public class SpecialityController {
         Speciality speciality1 =
                 specialityService.getSpecialityById(speciality.getId());
         model.addAttribute("speciality", speciality1);
+        Faculty faculty = facultyService.getFacultyById(Integer.parseInt(facultyId));
+        model.addAttribute("faculty", faculty);
         return "/speciality";
+    }
+
+    @RequestMapping(path = "/faculty/speciality/delete",
+            method = RequestMethod.GET)
+    public String deleteFaculty(
+            @RequestParam(name = "facultyId") String facultyId,
+            @RequestParam(name = "specialityId") String specialityId){
+        Speciality speciality = specialityService
+                .getSpecialityById(Integer.parseInt(specialityId));
+        specialityService.deleteSpeciality(speciality);
+        return "redirect:/faculty?id=" + facultyId;
     }
 
 }
