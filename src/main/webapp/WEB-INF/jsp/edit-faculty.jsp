@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Kostya
-  Date: 12.06.2017
-  Time: 17:17
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -14,6 +7,7 @@
 </head>
 <body>
 <div class="container">
+    <jsp:include page="header.jsp"/>
     <div class="col-xs-5 centered">
         <h3>Информация о факультете:</h3>
 

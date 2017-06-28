@@ -1,6 +1,7 @@
 package com.softserve.edu.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Kostya on 11.06.2017.
@@ -17,14 +18,18 @@ public class Speciality {
     @Column(name = "letter")
     private String letter;
     @ManyToOne
-    @JoinColumn(name = "faculty_id", referencedColumnName = "id", nullable =
-            false)
+    @JoinColumn(name = "faculty_id", referencedColumnName = "id",
+            nullable = false)
     private Faculty faculty;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "speciality",
+            cascade = CascadeType.ALL)
+    private List<Group> groups;
 
     public Speciality() {
 
     }
-    public Speciality(String name,String letter, Faculty faculty) {
+
+    public Speciality(String name, String letter, Faculty faculty) {
         this.name = name;
         this.letter = letter;
         this.faculty = faculty;
@@ -60,5 +65,13 @@ public class Speciality {
 
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 }

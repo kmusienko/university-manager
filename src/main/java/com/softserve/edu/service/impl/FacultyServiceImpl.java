@@ -38,4 +38,9 @@ public class FacultyServiceImpl implements FacultyService {
     public void deleteFaculty(Faculty faculty) {
         DaoFactory.getInstance().getFacultyDao().deleteElement(faculty);
     }
+
+    @Override
+    public Faculty getFacultyByName(String facultyName) {
+        return DaoFactory.getInstance().getFacultyDao().getFacultyByName(facultyName);
+    }
 }

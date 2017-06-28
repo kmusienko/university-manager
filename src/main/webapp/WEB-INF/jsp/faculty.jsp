@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Kostya
-  Date: 11.06.2017
-  Time: 17:52
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -15,6 +8,7 @@
 </head>
 <body>
 <div class="container">
+    <jsp:include page="header.jsp"/>
     <div class="col-md-5">
         <h3>Факультет:</h3>
         <h4>Название: ${faculty.name}</h4>

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Kostya
-  Date: 14.06.2017
-  Time: 17:57
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -14,6 +7,7 @@
 </head>
 <body>
 <div class="container">
+    <jsp:include page="header.jsp"/>
     <div class="col-xs-5 centered">
         <h3>Информация о специальности:</h3>
 
@@ -28,8 +22,8 @@
             </div>
 
             <div class="form-group">
-                <label for="address">Буква:</label>
-                <input id="address" type="text" class="form-control" name="letter" value="${speciality.letter}"/>
+                <label for="letter">Буква:</label>
+                <input id="letter" type="text" class="form-control" name="letter" value="${speciality.letter}"/>
             </div>
             <input type="hidden" name="faculty_id" value="${faculty.id}">
 

@@ -38,7 +38,10 @@ public class Main {
             System.out.println(groupService.getGroupName(plan.getGroup()) + " "
                                        + plan.getControl());
         }
-
+        Teacher teacher = teacherService.getTeacherByName("Кузенков Александр" +
+                                                                  " " +
+                                                    "Александрович");
+        System.out.println(teacher.getName());
 //        SpecialityService specialityService = new SpecialityServiceImpl();
 //        for (Speciality speciality : specialityService.getAllSpecialities()) {
 //            System.out.println(speciality.getName());

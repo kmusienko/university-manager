@@ -3,12 +3,14 @@ package com.softserve.edu.service.impl;
 import com.softserve.edu.dao.DaoFactory;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.service.GroupService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Kostya on 27.06.2017.
  */
+@Service
 public class GroupServiceImpl implements GroupService {
     public void addGroup(Group group) {
         DaoFactory.getInstance().getGroupDao().addElement(group);
@@ -33,15 +35,17 @@ public class GroupServiceImpl implements GroupService {
         Group group = getGroupById(groupId);
         String specialityLetter = group.getSpeciality().getLetter();
         String facultyLetter = group.getSpeciality().getFaculty().getLetter();
-        int yearEntered = group.getYearEntered();
-        return facultyLetter+specialityLetter+"-"+yearEntered;
+        int yearEntered = group.getYearEntered() - 2000;
+        int groupNumber = group.getGroupNumber();
+        return facultyLetter + specialityLetter + "-" + yearEntered + "-"
+                + groupNumber;
     }
     public String getGroupName(Group group) {
         String specialityLetter = group.getSpeciality().getLetter();
         String facultyLetter = group.getSpeciality().getFaculty().getLetter();
         int yearEntered = group.getYearEntered()-2000;
         int groupNumber = group.getGroupNumber();
-        return facultyLetter+specialityLetter+"-" + yearEntered + "-"
+        return facultyLetter+specialityLetter + "-" + yearEntered + "-"
                 + groupNumber;
     }
 }

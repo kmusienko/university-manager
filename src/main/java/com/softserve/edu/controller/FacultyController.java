@@ -33,21 +33,30 @@ public class FacultyController {
     }
 
     @RequestMapping(path = "/faculty")
-    public String showFacultyInfo(@RequestParam(name = "id") int facultyId,
-                                  Model model) {
-        Faculty faculty =
-                facultyService.getFacultyById(facultyId);
-//        List<Speciality> specialities = specialityService
-        //                .getSpecialitiesByFacultyId(Integer.parseInt(facultyId));
-        List<Speciality> specialities = faculty.getSpecialities();
-        model.addAttribute("faculty", faculty);
-        model.addAttribute("specialities", specialities);
+    public String showFacultyInfo(
+            @RequestParam(name = "id", required = false) Integer facultyId,
+            @RequestParam(name = "name", required = false) String name, Model
+                    model) {
+        if (facultyId!=null) {
+            Faculty faculty = facultyService.getFacultyById(facultyId);
+            //        List<Speciality> specialities = specialityService
+            //                .getSpecialitiesByFacultyId(Integer.parseInt(facultyId));
+            List<Speciality> specialities = faculty.getSpecialities();
+            model.addAttribute("faculty", faculty);
+            model.addAttribute("specialities", specialities);
+        } else if (name!=null && !name.equals("")) {
+            Faculty faculty = facultyService.getFacultyByName(name);
+            List<Speciality> specialities = faculty.getSpecialities();
+            model.addAttribute("specialities", specialities);
+            model.addAttribute("faculty", faculty);
+        }
         return "/faculty";
     }
 
     @RequestMapping(path = "/faculty/edit", method = RequestMethod.GET)
-    public String addFaculty(@RequestParam(name = "id", required = false)
-                                         String id, Model model) {
+    public String addFaculty(
+            @RequestParam(name = "id", required = false) String id,
+            Model model) {
         Faculty faculty;
         if (id == null) {
             faculty = new Faculty();
@@ -59,17 +68,18 @@ public class FacultyController {
     }
 
     @RequestMapping(path = "/faculty/edit", method = RequestMethod.POST)
-    public String editFaculty(@RequestParam(name = "id", required =
-            false) String id, @ModelAttribute Faculty faculty, Model model) {
+    public String editFaculty(
+            @RequestParam(name = "id", required = false) String id,
+            @ModelAttribute Faculty faculty, Model model) {
         if (id != null && !id.equals("0")) {
-         //   faculty.setId(Integer.parseInt(id));
+            //   faculty.setId(Integer.parseInt(id));
             facultyService.updateFaculty(faculty);
         } else {
             facultyService.addFaculty(faculty);
         }
         Faculty faculty1 = facultyService.getFacultyById(faculty.getId());
         model.addAttribute("faculty", faculty1);
-        return "/faculty";
+        return "redirect:/faculty?id=" + id;
     }
 
     @RequestMapping(path = "/faculty/delete", method = RequestMethod.GET)

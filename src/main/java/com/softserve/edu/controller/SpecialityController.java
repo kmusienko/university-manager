@@ -1,8 +1,10 @@
 package com.softserve.edu.controller;
 
 import com.softserve.edu.model.Faculty;
+import com.softserve.edu.model.Group;
 import com.softserve.edu.model.Speciality;
 import com.softserve.edu.service.FacultyService;
+import com.softserve.edu.service.GroupService;
 import com.softserve.edu.service.SpecialityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Kostya on 14.06.2017.
@@ -23,6 +28,8 @@ public class SpecialityController {
     private FacultyService facultyService;
     @Autowired
     private SpecialityService specialityService;
+    @Autowired
+    private GroupService groupService;
 
     @RequestMapping(path = "/faculty/speciality")
     public String showSpecialityInfo(
@@ -37,6 +44,13 @@ public class SpecialityController {
         model.addAttribute("speciality", speciality);
         model.addAttribute("faculty", faculty);
         //        model.addAttribute("specialities", specialities);
+        List<Group> groups = speciality.getGroups();
+        model.addAttribute("groups", groups);
+        Map<Integer,String> groupMap = new LinkedHashMap<>();
+        for (Group group : groups) {
+            groupMap.put(group.getId(), groupService.getGroupName(group));
+        }
+        model.addAttribute("groupMap", groupMap);
         return "/speciality";
     }
 
@@ -79,7 +93,10 @@ public class SpecialityController {
         model.addAttribute("speciality", speciality1);
         Faculty faculty = facultyService.getFacultyById(Integer.parseInt(facultyId));
         model.addAttribute("faculty", faculty);
-        return "/speciality";
+//        List<Group> groups = speciality.getGroups();
+//        model.addAttribute("groups", groups);
+        return "redirect:/faculty/speciality?id=" + specialityId +
+                "&facultyId=" + facultyId;
     }
 
     @RequestMapping(path = "/faculty/speciality/delete",
