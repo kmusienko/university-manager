@@ -5,11 +5,11 @@
     <nav class="navbar navbar-default" style="margin-top: 10px">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">University manager</a>
+                <a class="navbar-brand" href="/">University manager</a>
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/faculties">Факультеты</a></li>
-                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Кафедры</a></li>
                 <li><a href="#">План</a></li>
             </ul>
             <c:url value="/faculty" var="searchFacultyUrl"/>
@@ -20,8 +20,8 @@
                 <button type="submit" class="btn btn-default">Найти</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Регистрация</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>
             </ul>
         </div>
     </nav>

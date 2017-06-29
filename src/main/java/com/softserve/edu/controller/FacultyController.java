@@ -79,7 +79,7 @@ public class FacultyController {
         }
         Faculty faculty1 = facultyService.getFacultyById(faculty.getId());
         model.addAttribute("faculty", faculty1);
-        return "redirect:/faculty?id=" + id;
+        return "redirect:/faculty";
     }
 
     @RequestMapping(path = "/faculty/delete", method = RequestMethod.GET)

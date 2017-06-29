@@ -19,7 +19,7 @@
         <c:url value="/faculty/speciality/group/edit?groupId=${group.id}"
                var="editUrl"/>
         <a href="${editUrl}" class="btn btn-primary" role="button">Изменить</a>
-        <c:url value="/faculty/speciality/group/delete?groupId=${group.id}"
+        <c:url value="/faculty/speciality/group/delete?groupId=${group.id}&specialityId=${group.speciality.id}"
                var="deleteUrl"/>
         <a href="${deleteUrl}" class="btn btn-danger" role="button">Удалить</a>
         <h3>Студенты:</h3>

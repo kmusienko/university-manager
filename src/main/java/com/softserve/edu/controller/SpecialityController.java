@@ -95,7 +95,7 @@ public class SpecialityController {
         model.addAttribute("faculty", faculty);
 //        List<Group> groups = speciality.getGroups();
 //        model.addAttribute("groups", groups);
-        return "redirect:/faculty/speciality?id=" + specialityId +
+        return "redirect:/faculty/speciality?id=" + speciality.getId() +
                 "&facultyId=" + facultyId;
     }
 
