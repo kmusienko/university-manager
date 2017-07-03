@@ -14,11 +14,11 @@ import java.util.List;
 /**
  * Created by Kostya on 10.06.2017.
  */
-//@Repository
+@Repository
 public class FacultyDao extends ElementDaoImpl<Faculty> {
 
-//    @Autowired
-//    private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
     public FacultyDao() {
         super(Faculty.class);
@@ -28,8 +28,8 @@ public class FacultyDao extends ElementDaoImpl<Faculty> {
         Session session = null;
         Faculty faculty;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
-         //   session = sessionFactory.openSession();
+            //session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();
             //todo: why do I get NullPointerException?!
             String hql = "from Faculty faculty where faculty.name=:facultyName";

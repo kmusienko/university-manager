@@ -41,7 +41,7 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public Faculty getFacultyByName(String facultyName) {
-        return DaoFactory.getInstance().getFacultyDao().getFacultyByName(facultyName);
-        //return facultyDao.getFacultyByName(facultyName);
+//        return DaoFactory.getInstance().getFacultyDao().getFacultyByName(facultyName);
+        return facultyDao.getFacultyByName(facultyName);
     }
 }
