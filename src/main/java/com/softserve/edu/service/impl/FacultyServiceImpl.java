@@ -14,8 +14,8 @@ import java.util.List;
  */
 @Service
 public class FacultyServiceImpl implements FacultyService {
-//    @Autowired
-//    private FacultyDao facultyDao;
+    @Autowired
+    private FacultyDao facultyDao;
 
     public void addFaculty(Faculty faculty) {
         DaoFactory.getInstance().getFacultyDao().addElement(faculty);
@@ -42,5 +42,6 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public Faculty getFacultyByName(String facultyName) {
         return DaoFactory.getInstance().getFacultyDao().getFacultyByName(facultyName);
+        //return facultyDao.getFacultyByName(facultyName);
     }
 }

@@ -41,7 +41,7 @@
             </tbody>
         </table>
 
-        <c:url value="/faculty/speciality/group/edit?specialityId=${speciality.id}&groupId=${group.id}"
+        <c:url value="/faculty/speciality/group/edit?groupId=${group.id}&specialityId=${speciality.id}"
                var="addGroupUrl"/>
         <a href="${addGroupUrl}" class="btn btn-success" role="button">
             Добавить группу</a>

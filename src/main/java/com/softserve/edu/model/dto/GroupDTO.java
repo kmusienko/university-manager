@@ -4,7 +4,6 @@ package com.softserve.edu.model.dto;
  * Created by Kostya on 28.06.2017.
  */
 public class GroupDTO {
-    private int id;
     private int specialityId;
     private String curatorName;
     private int yearEntered;
@@ -12,15 +11,6 @@ public class GroupDTO {
 
     public GroupDTO() {
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getSpecialityId() {
         return specialityId;
     }

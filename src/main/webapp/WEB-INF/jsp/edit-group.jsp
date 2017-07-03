@@ -14,11 +14,11 @@
         <c:url value="/faculty/speciality/group/edit?groupId=${group.id}&specialityId=${speciality.id}" var="editUrl"/>
         <form action="${editUrl}" method="post">
 
-            <input type="hidden" name="id" value="${group.id}">
+            <input type="hidden" name="id" value="${group.id}"/>
 
             <div class="form-group">
                 <label for="name">Год поступления:</label>
-                <input id="name" type="text" class="form-control" name="yearEntered" value="${group.yearEntered}">
+                <input id="name" type="text" class="form-control" name="yearEntered" value="${group.yearEntered}"/>
             </div>
 
             <div class="form-group">

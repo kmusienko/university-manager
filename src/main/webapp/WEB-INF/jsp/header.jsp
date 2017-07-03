@@ -8,20 +8,28 @@
                 <a class="navbar-brand" href="/">University manager</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/faculties">Факультеты</a></li>
-                <li><a href="#">Кафедры</a></li>
-                <li><a href="#">План</a></li>
+                <c:url value="/faculties" var="allFacultiesUrl"/>
+                <li class="active"><a href=${allFacultiesUrl}>Факультеты</a></li>
+                <c:url value="/plan" var="planUrl"/>
+                <li><a href=${planUrl}>План</a></li>
             </ul>
             <c:url value="/faculty" var="searchFacultyUrl"/>
             <form class="navbar-form navbar-left" action="${searchFacultyUrl}" method="get">
                 <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Имя студента">
+                    <input type="text" name="name" class="form-control" placeholder="Название факультета">
+                </div>
+                <button type="submit" class="btn btn-default">Найти</button>
+            </form>
+            <c:url value="/faculty/speciality/group/student" var="searchFacultyUrl"/>
+            <form class="navbar-form navbar-left" action="${searchFacultyUrl}" method="get">
+                <div class="form-group">
+                    <input type="text" name="lastName" class="form-control" placeholder="Фамилия студента">
                 </div>
                 <button type="submit" class="btn btn-default">Найти</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Регистрация</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>Войти</a></li>
             </ul>
         </div>
     </nav>

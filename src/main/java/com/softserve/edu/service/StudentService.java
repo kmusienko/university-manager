@@ -13,4 +13,5 @@ public interface StudentService {
     Student getStudentById(int studentId);
     List<Student> getAllStudents();
     void deleteStudent(Student student);
+    Student getStudentByLastName(String lastName);
 }

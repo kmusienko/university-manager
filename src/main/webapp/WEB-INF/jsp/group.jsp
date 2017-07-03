@@ -16,7 +16,7 @@
         <h4>Год поступления: ${group.yearEntered}</h4>
         <h4>Специальность: ${group.speciality.name}</h4>
 
-        <c:url value="/faculty/speciality/group/edit?groupId=${group.id}"
+        <c:url value="/faculty/speciality/group/edit?groupId=${group.id}&specialityId=${group.speciality.id}"
                var="editUrl"/>
         <a href="${editUrl}" class="btn btn-primary" role="button">Изменить</a>
         <c:url value="/faculty/speciality/group/delete?groupId=${group.id}&specialityId=${group.speciality.id}"
@@ -38,12 +38,12 @@
                     <th scope="row">${count.index+1}</th>
 
                     <td>
-                        <c:url value="/faculty/speciality/group/student?studentId=${student.id}"
+                        <c:url value="/faculty/speciality/group/student?studentId=${student.id}&groupId=${group.id}"
                                var="studentUrl"/>
                         <a href="${studentUrl}">${student.lastName}</a>
                     </td>
                     <td>
-                        <c:url value="/faculty/speciality/group/student?studentId=${student.id}"
+                        <c:url value="/faculty/speciality/group/student?studentId=${student.id}&groupId=${group.id}"
                                var="studentUrl"/>
                         <a href="${studentUrl}">${student.firstName}</a>
                     </td>
@@ -52,7 +52,7 @@
             </tbody>
         </table>
 
-        <c:url value="/faculty/speciality/group/student/edit?studentId=${student.id}"
+        <c:url value="/faculty/speciality/group/student/edit?groupId=${group.id}"
                var="addGroupUrl"/>
         <a href="${addGroupUrl}" class="btn btn-success" role="button">
             Добавить студента</a>

@@ -17,8 +17,9 @@ import java.util.List;
 //@Repository
 public class FacultyDao extends ElementDaoImpl<Faculty> {
 
-    //    @Autowired
-    //    private SessionFactory sessionFactory;
+//    @Autowired
+//    private SessionFactory sessionFactory;
+
     public FacultyDao() {
         super(Faculty.class);
     }
@@ -28,9 +29,10 @@ public class FacultyDao extends ElementDaoImpl<Faculty> {
         Faculty faculty;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
+         //   session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();
             //todo: why do I get NullPointerException?!
-            String hql = "from Faculty where Faculty.name=:facultyName";
+            String hql = "from Faculty faculty where faculty.name=:facultyName";
             faculty = session.createQuery(hql, Faculty.class)
                     .setParameter("facultyName", facultyName).getSingleResult();
             //                        faculty = session.createNativeQuery(

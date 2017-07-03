@@ -1,5 +1,6 @@
 package com.softserve.edu.config;
 
+import com.softserve.edu.dao.FacultyDao;
 import com.softserve.edu.model.Faculty;
 import com.softserve.edu.model.Speciality;
 import org.hibernate.SessionFactory;
@@ -27,7 +28,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("com.softserve.edu.dao")
+@ComponentScan("com.softserve.edu.*")
 @PropertySource("classpath:db.properties")
 public class PersistenceConfig {
     private static final String PROP_DB_DRIVER = "db.driver";
@@ -51,20 +52,20 @@ public class PersistenceConfig {
         return ds;
     }
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
-        LocalContainerEntityManagerFactoryBean factory = new
-                LocalContainerEntityManagerFactoryBean();
-//        LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
-        factory.setDataSource(dataSource());
-        factory.setPackagesToScan("com.softserve.edu.model");
-
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setJpaProperties(hibernateProperties());
-
-        return factory;
-    }
+//    @Bean
+//    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+//        LocalContainerEntityManagerFactoryBean factory = new
+//                LocalContainerEntityManagerFactoryBean();
+////        LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
+//        factory.setDataSource(dataSource());
+//        factory.setPackagesToScan("com.softserve.edu.model");
+//
+//        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+//        factory.setJpaVendorAdapter(vendorAdapter);
+//        factory.setJpaProperties(hibernateProperties());
+//
+//        return factory;
+//    }
 
     @Bean
     public SessionFactory sessionFactory() {
@@ -79,7 +80,8 @@ public class PersistenceConfig {
 //        factory.setAnnotatedClasses(Faculty.class, Speciality.class);
 //        factory.setHibernateProperties(hibernateProperties());
       //  factory.afterPropertiesSet();
-        return builder.buildSessionFactory();
+        SessionFactory sessionFactory = builder.buildSessionFactory();
+        return sessionFactory;
     }
 
     @Bean
@@ -95,5 +97,9 @@ public class PersistenceConfig {
         properties.setProperty(PROP_DB_GENERATE_DDL, environment.getProperty(PROP_DB_GENERATE_DDL));
         properties.setProperty(PROP_DB_DIALECT, environment.getProperty(PROP_DB_DIALECT));
         return properties;
+    }
+    @Bean
+    public FacultyDao getFacultyDao() {
+        return new FacultyDao();
     }
 }

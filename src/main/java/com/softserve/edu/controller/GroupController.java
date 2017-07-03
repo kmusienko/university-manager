@@ -51,43 +51,59 @@ public class GroupController {
     @RequestMapping(path = "/faculty/speciality/group/edit",
             method = RequestMethod.GET)
     public String addGroup(
-            @RequestParam(name = "specialityId") int specialityId,
-            @RequestParam(name = "groupId", required = false) Integer groupId,
+            @RequestParam(name = "specialityId") String specialityId,
+            @RequestParam(name = "groupId", required = false) String groupId,
             Model model) {
         Group group;
-        if (groupId == null) {
+        if (groupId == null || groupId.equals("")) {
             group = new Group();
         } else {
-            group = groupService.getGroupById(groupId);
+            group = groupService.getGroupById(Integer.parseInt(groupId));
         }
-        Speciality speciality =
-                specialityService.getSpecialityById(specialityId);
         model.addAttribute("group", group);
+        Speciality speciality = specialityService
+                .getSpecialityById(Integer.parseInt(specialityId));
         model.addAttribute("speciality", speciality);
         return "/edit-group";
     }
 
     @RequestMapping(path = "/faculty/speciality/group/edit",
             method = RequestMethod.POST)
-    public String editGroup(@RequestParam(name = "groupId") Integer groupId,
+    public String editGroup(@RequestParam(name = "groupId") String groupId,
                             @RequestParam(name = "specialityId")
                                     Integer specialityId,
-                            @ModelAttribute GroupDTO groupDTO, Model model) {
+                            @ModelAttribute GroupDTO groupDTO) {
         Group group;
-        if (groupId == 0) {
-            group = new Group();
-            group.setSpeciality(
-                    specialityService.getSpecialityById(specialityId));
+        if (groupId != null && !groupId.equals("0")) {
+            group = groupService.getGroupById(Integer.parseInt(groupId));
+            group.setGroupNumber(groupDTO.getGroupNumber());
+            group.setYearEntered(groupDTO.getYearEntered());
             group.setCurator(
                     teacherService.getTeacherByName(groupDTO.getCuratorName()));
-            group.setYearEntered(groupDTO.getYearEntered());
-            group.setGroupNumber(groupDTO.getGroupNumber());
-            groupService.addGroup(group);
+            groupService.updateGroup(group);
         } else {
-            group = new Group();//test
+            group = new Group();
+            group.setSpeciality(
+                    specialityService.getSpecialityById((specialityId)));
+            group.setGroupNumber(groupDTO.getGroupNumber());
+            group.setYearEntered(groupDTO.getYearEntered());
+            group.setCurator(
+                    teacherService.getTeacherByName(groupDTO.getCuratorName()));
+            groupService.addGroup(group);
         }
-        //  group.setSpeciality(specialityService.getSpecialityById
-        // (specialityId));
+        //        if (groupId.equals("")) {
+        //            group = new Group();
+        //            group.setSpeciality(
+        //                    specialityService.getSpecialityById(specialityId));
+        //            group.setCurator(
+        //                    teacherService.getTeacherByName(groupDTO.getCuratorName()));
+        //            group.setYearEntered(groupDTO.getYearEntered());
+        //            group.setGroupNumber(groupDTO.getGroupNumber());
+        //            groupService.addGroup(group);
+        //        } else {
+        //            group = groupService.getGroupById(Integer.parseInt(groupId));
+        //            groupService.updateGroup(group);
+        //        }
 
         return "redirect:/faculty/speciality/group?groupId=" + group.getId();
     }

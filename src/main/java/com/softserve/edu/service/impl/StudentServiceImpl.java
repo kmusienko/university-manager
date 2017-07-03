@@ -24,7 +24,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student getStudentById(int studentId) {
-        return DaoFactory.getInstance().getStudentDao().getElementById(studentId);
+        return DaoFactory.getInstance().getStudentDao()
+                .getElementById(studentId);
     }
 
     @Override
@@ -35,5 +36,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(Student student) {
         DaoFactory.getInstance().getStudentDao().deleteElement(student);
+    }
+
+    @Override
+    public Student getStudentByLastName(String lastName) {
+        return DaoFactory.getInstance().getStudentDao()
+                .getStudentByLastName(lastName);
     }
 }

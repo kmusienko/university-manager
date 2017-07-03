@@ -4,6 +4,8 @@ import com.softserve.edu.model.*;
 import com.softserve.edu.service.*;
 import com.softserve.edu.service.impl.*;
 
+import java.time.LocalDate;
+
 /**
  * Created by Kostya on 10.06.2017.
  */
@@ -42,6 +44,8 @@ public class Main {
                                                                   "Александр " +
                                                                   "Александрович");
         System.out.println(teacher.getName());
+        LocalDate localDate = LocalDate.parse("1997-07-07");
+        System.out.println(localDate);
 //        SpecialityService specialityService = new SpecialityServiceImpl();
 //        for (Speciality speciality : specialityService.getAllSpecialities()) {
 //            System.out.println(speciality.getName());

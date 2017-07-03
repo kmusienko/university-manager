@@ -13,17 +13,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Kostya on 11.06.2017.
  */
 @Controller
 public class FacultyController {
-    @Autowired
+
     private FacultyService facultyService;
-    @Autowired
     private SpecialityService specialityService;
+
+    @Autowired
+    public FacultyController(FacultyService facultyService, SpecialityService
+            specialityService) {
+        this.facultyService = facultyService;
+        this.specialityService = specialityService;
+    }
 
     @RequestMapping(path = "/faculties")
     public String getAllFaculties(Model model) {
@@ -41,7 +46,8 @@ public class FacultyController {
             Faculty faculty = facultyService.getFacultyById(facultyId);
             //        List<Speciality> specialities = specialityService
             //                .getSpecialitiesByFacultyId(Integer.parseInt(facultyId));
-            List<Speciality> specialities = faculty.getSpecialities();
+            List<Speciality> specialities = specialityService
+                    .getSpecialitiesByFacultyId(facultyId);
             model.addAttribute("faculty", faculty);
             model.addAttribute("specialities", specialities);
         } else if (name!=null && !name.equals("")) {
@@ -69,10 +75,9 @@ public class FacultyController {
 
     @RequestMapping(path = "/faculty/edit", method = RequestMethod.POST)
     public String editFaculty(
-            @RequestParam(name = "id", required = false) String id,
+            @RequestParam(name = "id", required = false) Integer id,
             @ModelAttribute Faculty faculty, Model model) {
-        if (id != null && !id.equals("0")) {
-            //   faculty.setId(Integer.parseInt(id));
+        if (id != null && id != 0) {
             facultyService.updateFaculty(faculty);
         } else {
             facultyService.addFaculty(faculty);
@@ -83,8 +88,8 @@ public class FacultyController {
     }
 
     @RequestMapping(path = "/faculty/delete", method = RequestMethod.GET)
-    public String deleteFaculty(@RequestParam(name = "id") String id) {
-        Faculty faculty = facultyService.getFacultyById(Integer.parseInt(id));
+    public String deleteFaculty(@RequestParam(name = "id") Integer id) {
+        Faculty faculty = facultyService.getFacultyById(id);
         facultyService.deleteFaculty(faculty);
         return "redirect:/faculties";
     }

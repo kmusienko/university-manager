@@ -23,20 +23,21 @@ public class TeacherDao extends ElementDaoImpl<Teacher> {
             Transaction transaction = session.beginTransaction();
             //todo: Why do I get NullPointerException?!
             Query query = session.createQuery(
-                    "from Teacher where Teacher.name=:teacherName",
-                    Teacher.class).setParameter("teacherName", name);
-            List<Teacher> teacherList = query.getResultList();
-            if (teacherList.size()!=0) {
-                teacher = teacherList.get(0);
-                return teacher;
-            }
-           // teacher = (Teacher) query.getSingleResult();
+                    "from Teacher teacher where teacher.name=:teacherName",
+                    Teacher.class);
+                    query.setParameter("teacherName", name);
+//            List<Teacher> teacherList = query.getResultList();
+//            if (teacherList.size()!=0) {
+//                teacher = teacherList.get(0);
+//                return teacher;
+//            }
+            teacher = (Teacher) query.getSingleResult();
             transaction.commit();
         } finally {
             if ((session != null) && (session.isOpen())) {
                 session.close();
             }
         }
-        return new Teacher();
+        return teacher;
     }
 }
