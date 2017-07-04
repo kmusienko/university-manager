@@ -2,6 +2,8 @@ package com.softserve.edu.dao;
 
 import com.softserve.edu.model.Speciality;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,13 +14,17 @@ import java.util.List;
 @Repository
 public class SpecialityDao extends ElementDaoImpl<Speciality> {
 
-    public SpecialityDao() {
-        super(Speciality.class);
+    private SessionFactory sessionFactory;
+
+    @Autowired
+    public SpecialityDao(SessionFactory sessionFactory) {
+        super(Speciality.class, sessionFactory);
+        this.sessionFactory = sessionFactory;
     }
 
     public List<Speciality> getSpecialitiesByFacultyId(int facultyId) {
         Session session = null;
-        session = HibernateUtil.getSessionFactory().openSession();
+        session = sessionFactory.openSession();
         List<Speciality> specialities = session.createNativeQuery(
                 "select * from specialities where " + "faculty_id=" +
                         facultyId, Speciality.class).getResultList();

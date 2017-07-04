@@ -11,7 +11,7 @@
     <jsp:include page="header.jsp"/>
     <div class="col-md-5">
         <h3>Информация о студенте:</h3>
-        <h4>Фамилия: <b>${student.lastName}</b></h4>
+        <h4>Фамилия: ${student.lastName}</h4>
         <h4>Имя: ${student.firstName}</h4>
         <h4>Адрес: ${student.address}</h4>
         <h4>Дата рождения: ${student.birthdayDate}</h4>

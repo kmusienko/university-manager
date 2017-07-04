@@ -1,40 +1,55 @@
 package com.softserve.edu.service.impl;
 
-import com.softserve.edu.dao.DaoFactory;
+import com.softserve.edu.dao.SpecialityDao;
 import com.softserve.edu.model.Speciality;
 import com.softserve.edu.service.SpecialityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by Kostya on 11.06.2017.
- */
 @Service
 public class SpecialityServiceImpl implements SpecialityService {
+
+    private SpecialityDao specialityDao;
+
+    @Autowired
+    public SpecialityServiceImpl(SpecialityDao specialityDao) {
+        this.specialityDao = specialityDao;
+    }
+
+    @Override
     public void addSpeciality(Speciality speciality) {
-        DaoFactory.getInstance().getSpecialityDao().addElement(speciality);
+        specialityDao.addElement(speciality);
     }
 
+    @Override
     public void updateSpeciality(Speciality speciality) {
-        DaoFactory.getInstance().getSpecialityDao().updateElement(speciality);
+        specialityDao.updateElement(speciality);
     }
 
+    @Override
     public Speciality getSpecialityById(int specialityId) {
-        return DaoFactory.getInstance().getSpecialityDao()
-                .getElementById(specialityId);
+        return specialityDao.getElementById(specialityId);
     }
 
+    @Override
     public List<Speciality> getAllSpecialities() {
-        return DaoFactory.getInstance().getSpecialityDao().getAllElements();
+        return specialityDao.getAllElements();
     }
 
+    @Override
     public void deleteSpeciality(Speciality speciality) {
-        DaoFactory.getInstance().getSpecialityDao().deleteElement(speciality);
+        specialityDao.deleteElement(speciality);
     }
 
+    @Override
     public List<Speciality> getSpecialitiesByFacultyId(int facultyId) {
-        return DaoFactory.getInstance().getSpecialityDao()
-                .getSpecialitiesByFacultyId(facultyId);
+        return specialityDao.getSpecialitiesByFacultyId(facultyId);
+    }
+
+    @Override
+    public Speciality getSpecialityByLetter(String letter) {
+        return null;
     }
 }

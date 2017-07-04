@@ -15,4 +15,5 @@ public interface GroupService {
     void deleteGroup(Group group);
     String getGroupName(Group group);
     String getGroupNameById(int groupId);
+    Group getGroupByName(String groupName);
 }

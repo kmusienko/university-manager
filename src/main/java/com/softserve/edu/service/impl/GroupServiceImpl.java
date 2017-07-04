@@ -1,51 +1,91 @@
 package com.softserve.edu.service.impl;
 
-import com.softserve.edu.dao.DaoFactory;
+import com.softserve.edu.dao.GroupDao;
 import com.softserve.edu.model.Group;
+import com.softserve.edu.model.Speciality;
 import com.softserve.edu.service.GroupService;
+import com.softserve.edu.service.SpecialityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by Kostya on 27.06.2017.
- */
 @Service
+//@Scope(BeanDefinition.SCOPE_PROTOTYPE) - разный объект на каждый запрос
 public class GroupServiceImpl implements GroupService {
+
+    private GroupDao groupDao;
+    private SpecialityService specialityService;
+
+    @Autowired
+    public GroupServiceImpl(GroupDao groupDao, SpecialityService specialityService) {
+        this.groupDao = groupDao;
+        this.specialityService = specialityService;
+    }
+
+    @Override
     public void addGroup(Group group) {
-        DaoFactory.getInstance().getGroupDao().addElement(group);
+        groupDao.addElement(group);
     }
 
+    @Override
     public void updateGroup(Group group) {
-        DaoFactory.getInstance().getGroupDao().updateElement(group);
+        groupDao.updateElement(group);
     }
 
+    @Override
     public Group getGroupById(int groupId) {
-        return DaoFactory.getInstance().getGroupDao().getElementById(groupId);
+        return groupDao.getElementById(groupId);
     }
 
+    @Override
     public List<Group> getAllGroups() {
-        return DaoFactory.getInstance().getGroupDao().getAllElements();
+        return groupDao.getAllElements();
     }
 
+    @Override
     public void deleteGroup(Group group) {
-        DaoFactory.getInstance().getGroupDao().deleteElement(group);
+        groupDao.deleteElement(group);
     }
+
+    @Override
     public String getGroupNameById(int groupId) {
         Group group = getGroupById(groupId);
         String specialityLetter = group.getSpeciality().getLetter();
         String facultyLetter = group.getSpeciality().getFaculty().getLetter();
         int yearEntered = group.getYearEntered() - 2000;
         int groupNumber = group.getGroupNumber();
-        return facultyLetter + specialityLetter + "-" + yearEntered + "-"
-                + groupNumber;
+        return facultyLetter + specialityLetter + "-" + yearEntered + "-" +
+                groupNumber;
     }
+
+    @Override
     public String getGroupName(Group group) {
         String specialityLetter = group.getSpeciality().getLetter();
         String facultyLetter = group.getSpeciality().getFaculty().getLetter();
-        int yearEntered = group.getYearEntered()-2000;
+        int yearEntered = group.getYearEntered() - 2000;
         int groupNumber = group.getGroupNumber();
-        return facultyLetter+specialityLetter + "-" + yearEntered + "-"
-                + groupNumber;
+        return facultyLetter + specialityLetter + "-" + yearEntered + "-" +
+                groupNumber;
+    }
+
+    @Override
+    public Group getGroupByName(String groupName) {
+//        String[] parts = groupName.split("-");
+//        char firstLetter = parts[0].charAt(0);
+//        char secondLetter = parts[0].charAt(1);
+//        String yearEntered = parts[1];
+//        String groupNumber = parts[2];
+//        Speciality speciality = specialityService.getSpecialityByLetter
+//                (secondLetter);
+        List<Group> groups = getAllGroups();
+        for (Group group : groups) {
+            if (getGroupName(group).equals(groupName)) {
+                return group;
+            }
+        }
+        return null;
     }
 }

@@ -13,4 +13,5 @@ public interface SubjectService {
     Subject getSubjectById(int subjectId);
     List<Subject> getAllSubjects();
     void deleteSubject(Subject subject);
+    Subject getSubjectByName(String subjectName);
 }

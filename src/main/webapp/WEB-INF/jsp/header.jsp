@@ -10,7 +10,7 @@
             <ul class="nav navbar-nav">
                 <c:url value="/faculties" var="allFacultiesUrl"/>
                 <li class="active"><a href=${allFacultiesUrl}>Факультеты</a></li>
-                <c:url value="/plan" var="planUrl"/>
+                <c:url value="/plans" var="planUrl"/>
                 <li><a href=${planUrl}>План</a></li>
             </ul>
             <c:url value="/faculty" var="searchFacultyUrl"/>

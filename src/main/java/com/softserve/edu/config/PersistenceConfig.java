@@ -5,10 +5,8 @@ import com.softserve.edu.model.Faculty;
 import com.softserve.edu.model.Speciality;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -21,11 +19,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
 import java.util.Properties;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 
-/**
- * Created by Kostya on 11.06.2017.
- */
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("com.softserve.edu.*")
@@ -38,6 +34,8 @@ public class PersistenceConfig {
     private static final String PROP_DB_SHOW_SQL = "hibernate.show_sql";
     private static final String PROP_DB_GENERATE_DDL = "hibernate.hbm2ddl.auto";
     private static final String PROP_DB_DIALECT = "hibernate.dialect";
+//    private static final String PROR_DB_CURRENTSESSION =
+//            "current_session_context_class";
 
     @Autowired
     private Environment environment;
@@ -52,54 +50,65 @@ public class PersistenceConfig {
         return ds;
     }
 
-//    @Bean
-//    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
-//        LocalContainerEntityManagerFactoryBean factory = new
-//                LocalContainerEntityManagerFactoryBean();
-////        LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
-//        factory.setDataSource(dataSource());
-//        factory.setPackagesToScan("com.softserve.edu.model");
-//
-//        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-//        factory.setJpaVendorAdapter(vendorAdapter);
-//        factory.setJpaProperties(hibernateProperties());
-//
-//        return factory;
-//    }
+    //    @Bean
+    //    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+    //        LocalContainerEntityManagerFactoryBean factory = new
+    //                LocalContainerEntityManagerFactoryBean();
+    ////        LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
+    //        factory.setDataSource(dataSource());
+    //        factory.setPackagesToScan("com.softserve.edu.model");
+    //
+    //        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+    //        factory.setJpaVendorAdapter(vendorAdapter);
+    //        factory.setJpaProperties(hibernateProperties());
+    //
+    //        return factory;
+    //    }
 
     @Bean
     public SessionFactory sessionFactory() {
-      //  LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
-        LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder
-                (dataSource());
+   //       LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
+        LocalSessionFactoryBuilder builder =
+                new LocalSessionFactoryBuilder(dataSource());
         builder.scanPackages("com.softserve.edu.model");
         builder.addAnnotatedClasses(Faculty.class, Speciality.class);
         builder.addProperties(hibernateProperties());
-//        factory.setDataSource(dataSource());
-//        factory.setPackagesToScan("com.softserve.edu.model");
-//        factory.setAnnotatedClasses(Faculty.class, Speciality.class);
-//        factory.setHibernateProperties(hibernateProperties());
-      //  factory.afterPropertiesSet();
+//                factory.setDataSource(dataSource());
+//                factory.setPackagesToScan("com.softserve.edu.model");
+//                factory.setAnnotatedClasses(Faculty.class, Speciality.class);
+//                factory.setHibernateProperties(hibernateProperties());
+//        try {
+//            factory.afterPropertiesSet();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         SessionFactory sessionFactory = builder.buildSessionFactory();
         return sessionFactory;
     }
 
     @Bean
     public PlatformTransactionManager transactionManager() {
-        HibernateTransactionManager txManager = new HibernateTransactionManager();
+        HibernateTransactionManager txManager =
+                new HibernateTransactionManager();
         txManager.setSessionFactory(sessionFactory());
         return txManager;
     }
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.setProperty(PROP_DB_SHOW_SQL, environment.getProperty(PROP_DB_SHOW_SQL));
-        properties.setProperty(PROP_DB_GENERATE_DDL, environment.getProperty(PROP_DB_GENERATE_DDL));
-        properties.setProperty(PROP_DB_DIALECT, environment.getProperty(PROP_DB_DIALECT));
+        properties.setProperty(PROP_DB_SHOW_SQL,
+                               environment.getProperty(PROP_DB_SHOW_SQL));
+        properties.setProperty(PROP_DB_GENERATE_DDL,
+                               environment.getProperty(PROP_DB_GENERATE_DDL));
+        properties.setProperty(PROP_DB_DIALECT,
+                               environment.getProperty(PROP_DB_DIALECT));
+//        properties.setProperty(PROR_DB_CURRENTSESSION, environment
+//               .getProperty(PROR_DB_CURRENTSESSION));
         return properties;
     }
-    @Bean
-    public FacultyDao getFacultyDao() {
-        return new FacultyDao();
-    }
+
+//    @Bean
+//    public FacultyDao getFacultyDao() {
+//        return new FacultyDao();
+//    }
 }

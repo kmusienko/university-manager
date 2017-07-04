@@ -1,6 +1,5 @@
 package com.softserve.edu.service.impl;
 
-import com.softserve.edu.dao.DaoFactory;
 import com.softserve.edu.dao.FacultyDao;
 import com.softserve.edu.model.Faculty;
 import com.softserve.edu.service.FacultyService;
@@ -9,39 +8,43 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by Kostya on 10.06.2017.
- */
 @Service
 public class FacultyServiceImpl implements FacultyService {
-    @Autowired
+
     private FacultyDao facultyDao;
 
+    @Autowired
+    public FacultyServiceImpl(FacultyDao facultyDao) {
+        this.facultyDao = facultyDao;
+    }
+
+    @Override
     public void addFaculty(Faculty faculty) {
-        DaoFactory.getInstance().getFacultyDao().addElement(faculty);
+        facultyDao.addElement(faculty);
     }
 
+    @Override
     public void updateFaculty(Faculty faculty) {
-        DaoFactory.getInstance().getFacultyDao().updateElement(faculty);
+        facultyDao.updateElement(faculty);
     }
 
+    @Override
     public Faculty getFacultyById(int facultyId) {
-        return DaoFactory.getInstance().getFacultyDao()
-                .getElementById(facultyId);
+        return facultyDao.getElementById(facultyId);
     }
 
+    @Override
     public List<Faculty> getAllFaculties() {
-        return DaoFactory.getInstance().getFacultyDao().getAllElements();
-       // return facultyDao.getAllElements();
+        return facultyDao.getAllElements();
     }
 
+    @Override
     public void deleteFaculty(Faculty faculty) {
-        DaoFactory.getInstance().getFacultyDao().deleteElement(faculty);
+        facultyDao.deleteElement(faculty);
     }
 
     @Override
     public Faculty getFacultyByName(String facultyName) {
-//        return DaoFactory.getInstance().getFacultyDao().getFacultyByName(facultyName);
         return facultyDao.getFacultyByName(facultyName);
     }
 }

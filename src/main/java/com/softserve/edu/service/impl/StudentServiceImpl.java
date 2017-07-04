@@ -1,46 +1,50 @@
 package com.softserve.edu.service.impl;
 
-import com.softserve.edu.dao.DaoFactory;
+import com.softserve.edu.dao.StudentDao;
 import com.softserve.edu.model.Student;
 import com.softserve.edu.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by Kostya on 27.06.2017.
- */
 @Service
 public class StudentServiceImpl implements StudentService {
+
+    private StudentDao studentDao;
+
+    @Autowired
+    public StudentServiceImpl(StudentDao studentDao) {
+        this.studentDao = studentDao;
+    }
+
     @Override
     public void addStudent(Student student) {
-        DaoFactory.getInstance().getStudentDao().addElement(student);
+        studentDao.addElement(student);
     }
 
     @Override
     public void updateStudent(Student student) {
-        DaoFactory.getInstance().getStudentDao().updateElement(student);
+        studentDao.updateElement(student);
     }
 
     @Override
     public Student getStudentById(int studentId) {
-        return DaoFactory.getInstance().getStudentDao()
-                .getElementById(studentId);
+        return studentDao.getElementById(studentId);
     }
 
     @Override
     public List<Student> getAllStudents() {
-        return DaoFactory.getInstance().getStudentDao().getAllElements();
+        return studentDao.getAllElements();
     }
 
     @Override
     public void deleteStudent(Student student) {
-        DaoFactory.getInstance().getStudentDao().deleteElement(student);
+        studentDao.deleteElement(student);
     }
 
     @Override
     public Student getStudentByLastName(String lastName) {
-        return DaoFactory.getInstance().getStudentDao()
-                .getStudentByLastName(lastName);
+        return studentDao.getStudentByLastName(lastName);
     }
 }

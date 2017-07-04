@@ -1,39 +1,50 @@
 package com.softserve.edu.service.impl;
 
-import com.softserve.edu.dao.DaoFactory;
+import com.softserve.edu.dao.SubjectDao;
 import com.softserve.edu.model.Subject;
 import com.softserve.edu.service.SubjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by Kostya on 27.06.2017.
- */
 @Service
 public class SubjectServiceImpl implements SubjectService {
+
+    private SubjectDao subjectDao;
+
+    @Autowired
+    public SubjectServiceImpl(SubjectDao subjectDao) {
+        this.subjectDao = subjectDao;
+    }
+
     @Override
     public void addSubject(Subject subject) {
-        DaoFactory.getInstance().getSubjectDao().addElement(subject);
+        subjectDao.addElement(subject);
     }
 
     @Override
     public void updateSubject(Subject subject) {
-        DaoFactory.getInstance().getSubjectDao().updateElement(subject);
+        subjectDao.updateElement(subject);
     }
 
     @Override
     public Subject getSubjectById(int subjectId) {
-        return  DaoFactory.getInstance().getSubjectDao().getElementById(subjectId);
+        return subjectDao.getElementById(subjectId);
     }
 
     @Override
     public List<Subject> getAllSubjects() {
-        return  DaoFactory.getInstance().getSubjectDao().getAllElements();
+        return subjectDao.getAllElements();
     }
 
     @Override
     public void deleteSubject(Subject subject) {
-        DaoFactory.getInstance().getSubjectDao().deleteElement(subject);
+        subjectDao.deleteElement(subject);
+    }
+
+    @Override
+    public Subject getSubjectByName(String subjectName) {
+        return subjectDao.getSubjectByName(subjectName);
     }
 }

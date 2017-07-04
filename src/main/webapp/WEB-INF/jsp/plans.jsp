@@ -8,8 +8,22 @@
 <body>
 <div class="container">
     <jsp:include page="header.jsp"/>
-    <div class="col-md-8">
-        <h3>Планы</h3>
+    <div class="row">
+        <div class="col-md-4">
+            <h3 align="center"> Планы</h3>
+        </div>
+        <div class="col-md-4">
+            <c:url value="/plans" var="searchGroupUrl"/>
+            <form class="navbar-form navbar-left" action="${searchGroupUrl}" method="get">
+                <div class="form-group">
+                    <input type="text" name="groupName" class="form-control" placeholder="Фильтр по группе">
+                </div>
+                <button type="submit" class="btn btn-default">Применить</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-11">
+        <%--<h3>Планы</h3>--%>
         <table class="table table-striped" align="center">
             <thead>
             <tr>
@@ -26,17 +40,26 @@
             <c:forEach items="${plansDTO}" var="planDTO" varStatus="count">
                 <tr>
                     <th scope="row">${count.index + 1}</th>
-                    <td>${planDTO.teacher.name}</td>
+                    <td>${planDTO.teacherName}</td>
                     <td>${planDTO.groupName}</td>
-                    <td>${planDTO.subject.name}</td>
+                    <td>${planDTO.subjectName}</td>
                     <td>${planDTO.hours}</td>
                     <td>${planDTO.semesterNumber}</td>
-                    <td>${planDTO.control.name()}</td>
+                    <td>${planDTO.controlName}</td>
+                    <c:url value="/plan/edit?planId=${planDTO.id}"
+                           var="editUrl"/>
+                    <td><a href="${editUrl}" class="btn btn-primary"
+                           role="button">Изменить</a></td>
+
+                    <c:url value="/plan/delete?planId=${planDTO.id}"
+                           var="deleteUrl"/>
+                    <td><a href="${deleteUrl}" class="btn btn-danger"
+                            role="button">Удалить</a></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-        <c:url value="/faculty/edit" var="createUrl"/>
+        <c:url value="/plan/edit" var="createUrl"/>
         <a href="${createUrl}" class="btn btn-success" role="button">
             Добавить план</a>
     </div>

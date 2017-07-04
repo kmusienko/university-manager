@@ -14,4 +14,5 @@ public interface SpecialityService {
     List<Speciality> getAllSpecialities();
     void deleteSpeciality(Speciality speciality);
     List<Speciality> getSpecialitiesByFacultyId(int facultyId);
+    Speciality getSpecialityByLetter(String letter);
 }

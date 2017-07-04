@@ -9,23 +9,23 @@ import com.softserve.edu.model.enums.Control;
  * Created by Kostya on 03.07.2017.
  */
 public class PlanDTO {
-
-    private Teacher teacher;
+    private int id;
+    private String teacherName;
     private String  groupName;
-    private Subject subject;
+    private String subjectName;
     private int hours;
     private int semesterNumber;
-    private Control control;
+    private String controlName;
 
     public PlanDTO() {
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public String getTeacherName() {
+        return teacherName;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
     public String getGroupName() {
@@ -36,12 +36,12 @@ public class PlanDTO {
         this.groupName = groupName;
     }
 
-    public Subject getSubject() {
-        return subject;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
     public int getHours() {
@@ -60,11 +60,19 @@ public class PlanDTO {
         this.semesterNumber = semesterNumber;
     }
 
-    public Control getControl() {
-        return control;
+    public String getControlName() {
+        return controlName;
     }
 
-    public void setControl(Control control) {
-        this.control = control;
+    public void setControlName(String controlName) {
+        this.controlName = controlName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
