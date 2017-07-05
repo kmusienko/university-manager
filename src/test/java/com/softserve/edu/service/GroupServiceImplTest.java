@@ -107,7 +107,6 @@ public class GroupServiceImplTest {
 
         //Act
         Mockito.doReturn(groups).when(groupDao).getAllElements();
-        Group actualGroup = groupService.getGroupByName(groupName);
-
+        groupService.getGroupByName(groupName);
     }
 }

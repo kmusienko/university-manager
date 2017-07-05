@@ -20,7 +20,8 @@
                 </div>
                 <button type="submit" class="btn btn-default">Найти</button>
             </form>
-            <c:url value="/faculty/speciality/group/student" var="searchFacultyUrl"/>
+            <%--<c:url value="/faculty/speciality/group/student" var="searchFacultyUrl"/>--%>
+            <c:url value="/searchStudents" var="searchFacultyUrl"/>
             <form class="navbar-form navbar-left" action="${searchFacultyUrl}" method="get">
                 <div class="form-group">
                     <input type="text" name="lastName" class="form-control" placeholder="Фамилия студента">

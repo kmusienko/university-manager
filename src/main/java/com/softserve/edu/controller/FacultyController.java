@@ -1,7 +1,9 @@
 package com.softserve.edu.controller;
 
+import com.softserve.edu.model.Cathedra;
 import com.softserve.edu.model.Faculty;
 import com.softserve.edu.model.Speciality;
+import com.softserve.edu.service.CathedraService;
 import com.softserve.edu.service.FacultyService;
 import com.softserve.edu.service.SpecialityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,14 @@ public class FacultyController {
 
     private FacultyService facultyService;
     private SpecialityService specialityService;
+    private CathedraService cathedraService;
 
     @Autowired
     public FacultyController(FacultyService facultyService, SpecialityService
-            specialityService) {
+            specialityService, CathedraService cathedraService) {
         this.facultyService = facultyService;
         this.specialityService = specialityService;
+        this.cathedraService = cathedraService;
     }
 
     @RequestMapping(path = "/faculties")
@@ -48,12 +52,16 @@ public class FacultyController {
             //                .getSpecialitiesByFacultyId(Integer.parseInt(facultyId));
             List<Speciality> specialities = specialityService
                     .getSpecialitiesByFacultyId(facultyId);
+            List<Cathedra> cathedras = faculty.getCathedras();
             model.addAttribute("faculty", faculty);
             model.addAttribute("specialities", specialities);
+            model.addAttribute("cathedras", cathedras);
         } else if (name!=null && !name.equals("")) {
             Faculty faculty = facultyService.getFacultyByName(name);
             List<Speciality> specialities = faculty.getSpecialities();
+            List<Cathedra> cathedras = faculty.getCathedras();
             model.addAttribute("specialities", specialities);
+            model.addAttribute("cathedras", cathedras);
             model.addAttribute("faculty", faculty);
         }
         return "/faculty";

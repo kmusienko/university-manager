@@ -24,8 +24,9 @@ public class Cathedra {
     @JoinColumn(name = "faculty_id", referencedColumnName = "id",
             nullable = false)
     private Faculty faculty;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cathedra",
+    @OneToMany(mappedBy = "cathedra",
             cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Teacher> teachers;
 
     public Cathedra() {

@@ -53,9 +53,12 @@ public class GroupServiceImpl implements GroupService {
         Group group = getGroupById(groupId);
         String specialityLetter = group.getSpeciality().getLetter();
         String facultyLetter = group.getSpeciality().getFaculty().getLetter();
-        int yearEntered = group.getYearEntered() - 2000;
+       // int yearEntered = group.getYearEntered() - 2000;
+        String yearEnteredStr = String.valueOf(group.getYearEntered());
+        String number = yearEnteredStr.substring(yearEnteredStr.length() - 2,
+                                                 yearEnteredStr.length());
         int groupNumber = group.getGroupNumber();
-        return facultyLetter + specialityLetter + "-" + yearEntered + "-" +
+        return facultyLetter + specialityLetter + "-" + number + "-" +
                 groupNumber;
     }
 

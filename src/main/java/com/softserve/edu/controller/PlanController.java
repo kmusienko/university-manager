@@ -53,7 +53,6 @@ public class PlanController {
                     plans.add(plan);
                     plansDTO.add(new PlanDTO());
                 }
-
             }
         } else {
             plans = allPlans;

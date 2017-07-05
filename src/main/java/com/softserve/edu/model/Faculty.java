@@ -1,5 +1,8 @@
 package com.softserve.edu.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,7 +25,8 @@ public class Faculty {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "faculty",
             cascade = CascadeType.ALL)
     private List<Speciality> specialities;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "faculty",
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "faculty",
             cascade = CascadeType.ALL)
     private List<Cathedra> cathedras;
 

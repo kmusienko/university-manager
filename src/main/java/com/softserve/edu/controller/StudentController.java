@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Created by Kostya on 03.07.2017.
@@ -30,6 +31,7 @@ public class StudentController {
         this.studentService = studentService;
         this.groupService = groupService;
     }
+
     //todo: refactor this method
     @RequestMapping(path = "/faculty/speciality/group/student")
     public String showStudentInfo(
@@ -45,7 +47,7 @@ public class StudentController {
             model.addAttribute("student", student);
             model.addAttribute("group", group);
             model.addAttribute("groupName", groupName);
-        } else if (lastName != null && !lastName.equals("")){
+        } else if (lastName != null && !lastName.equals("")) {
             Student student = studentService.getStudentByLastName(lastName);
             Group group = student.getGroup();
             String groupName = groupService.getGroupName(group);
@@ -103,5 +105,13 @@ public class StudentController {
                 studentService.getStudentById(Integer.parseInt(studentId));
         studentService.deleteStudent(student);
         return "redirect:/faculty/speciality/group?groupId=" + groupId;
+    }
+
+    @RequestMapping(path = "/searchStudents")
+    public String getStudentList(
+            @RequestParam(name = "lastName") String lastName, Model model) {
+        List<Student> students = studentService.getStudentsByLastName(lastName);
+        model.addAttribute("students", students);
+        return "/search-students";
     }
 }

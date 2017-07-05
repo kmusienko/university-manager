@@ -101,7 +101,7 @@ public class SpecialityController {
 
     @RequestMapping(path = "/faculty/speciality/delete",
             method = RequestMethod.GET)
-    public String deleteFaculty(
+    public String deleteSpeciality(
             @RequestParam(name = "facultyId") String facultyId,
             @RequestParam(name = "specialityId") String specialityId){
         Speciality speciality = specialityService
