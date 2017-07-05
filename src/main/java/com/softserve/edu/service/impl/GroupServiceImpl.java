@@ -17,12 +17,10 @@ import java.util.List;
 public class GroupServiceImpl implements GroupService {
 
     private GroupDao groupDao;
-    private SpecialityService specialityService;
 
     @Autowired
-    public GroupServiceImpl(GroupDao groupDao, SpecialityService specialityService) {
+    public GroupServiceImpl(GroupDao groupDao) {
         this.groupDao = groupDao;
-        this.specialityService = specialityService;
     }
 
     @Override
@@ -65,27 +63,25 @@ public class GroupServiceImpl implements GroupService {
     public String getGroupName(Group group) {
         String specialityLetter = group.getSpeciality().getLetter();
         String facultyLetter = group.getSpeciality().getFaculty().getLetter();
-        int yearEntered = group.getYearEntered() - 2000;
+        // int yearEntered = group.getYearEntered() - 2000;
+        String yearEnteredStr = String.valueOf(group.getYearEntered());
+        String number = yearEnteredStr.substring(yearEnteredStr.length() - 2,
+                                                 yearEnteredStr.length());
         int groupNumber = group.getGroupNumber();
-        return facultyLetter + specialityLetter + "-" + yearEntered + "-" +
+        return facultyLetter + specialityLetter + "-" + number + "-" +
                 groupNumber;
     }
 
     @Override
     public Group getGroupByName(String groupName) {
-//        String[] parts = groupName.split("-");
-//        char firstLetter = parts[0].charAt(0);
-//        char secondLetter = parts[0].charAt(1);
-//        String yearEntered = parts[1];
-//        String groupNumber = parts[2];
-//        Speciality speciality = specialityService.getSpecialityByLetter
-//                (secondLetter);
+
         List<Group> groups = getAllGroups();
         for (Group group : groups) {
             if (getGroupName(group).equals(groupName)) {
                 return group;
             }
         }
-        return null;
+        throw new IllegalArgumentException(
+                "Group with name " + groupName + "doesn't exist");
     }
 }

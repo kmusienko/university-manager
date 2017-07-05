@@ -1,38 +1,42 @@
 package com.softserve.edu.dao;
 
-import com.softserve.edu.model.Faculty;
+import com.softserve.edu.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Created by Kostya on 05.07.2017.
+ */
 @Repository
-public class FacultyDao extends ElementDaoImpl<Faculty> {
+public class UserDaoImpl extends ElementDaoImpl<User> implements UserDao {
 
     private SessionFactory sessionFactory;
 
     @Autowired
-    public FacultyDao(SessionFactory sessionFactory) {
-        super(Faculty.class, sessionFactory);
+    public UserDaoImpl(SessionFactory sessionFactory) {
+        super(User.class, sessionFactory);
         this.sessionFactory = sessionFactory;
     }
 
-    public Faculty getFacultyByName(String facultyName) {
+    @Override
+    public User findByUsername(String username) {
         Session session = null;
-        Faculty faculty;
+        User user;
         try {
             session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();
-            String hql = "from Faculty faculty where faculty.name=:facultyName";
-            faculty = session.createQuery(hql, Faculty.class)
-                    .setParameter("facultyName", facultyName).getSingleResult();
+            String hql = "from User user where user.username=:tUserName";
+            user = session.createQuery(hql, User.class)
+                    .setParameter("tUserName", username).getSingleResult();
             transaction.commit();
         } finally {
             if ((session != null) && (session.isOpen())) {
                 session.close();
             }
         }
-        return faculty;
+        return user;
     }
 }

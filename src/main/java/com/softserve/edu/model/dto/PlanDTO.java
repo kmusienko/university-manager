@@ -1,10 +1,5 @@
 package com.softserve.edu.model.dto;
 
-import com.softserve.edu.model.Group;
-import com.softserve.edu.model.Subject;
-import com.softserve.edu.model.Teacher;
-import com.softserve.edu.model.enums.Control;
-
 /**
  * Created by Kostya on 03.07.2017.
  */

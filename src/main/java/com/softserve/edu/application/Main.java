@@ -11,6 +11,10 @@ import java.time.LocalDate;
  */
 public class Main {
     public static void main(String[] args) {
+        String yearEnteredStr = String.valueOf(2014);
+        String number = yearEnteredStr.substring(yearEnteredStr.length()-2,
+                                                 yearEnteredStr.length());
+        System.out.println(number);
 //        FacultyService facutyService = new FacultyServiceImpl();
 //        Faculty faculty = new Faculty("аыаы","fds","f");
 //        facutyService.addFaculty(faculty);

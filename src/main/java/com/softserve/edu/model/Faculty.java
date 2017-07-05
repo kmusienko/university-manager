@@ -19,11 +19,11 @@ public class Faculty {
     private String address;
     @Column(name = "letter")
     private String letter;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "faculty", cascade =
-            CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "faculty",
+            cascade = CascadeType.ALL)
     private List<Speciality> specialities;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "faculty", cascade =
-            CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "faculty",
+            cascade = CascadeType.ALL)
     private List<Cathedra> cathedras;
 
     public Faculty() {
@@ -37,7 +37,6 @@ public class Faculty {
     public void setCathedras(List<Cathedra> cathedras) {
         this.cathedras = cathedras;
     }
-
 
 
     public Faculty(String name, String address, String letter) {
